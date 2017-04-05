@@ -1,3 +1,10 @@
+/**
+ * VINCENT THAI
+ * CS 380
+ * EchoClient.JAVA
+ * PROFESSOR DAVARPANAH
+ * SPRING 2017
+ */
 
 import java.io.*;
 import java.net.Socket;

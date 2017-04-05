@@ -1,3 +1,11 @@
+/**
+ * VINCENT THAI
+ * CS 380
+ * EchoServer.JAVA
+ * PROFESSOR DAVARPANAH
+ * SPRING 2017
+ */
+
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
