@@ -29,9 +29,6 @@ public final class EchoClient {
                 if(temp.toLowerCase().trim().equals("exit")) break;
                 System.out.println(br.readLine());
             }
-            isr.close();
-            br.close();
-            socket.close();
         }
     }
 }
