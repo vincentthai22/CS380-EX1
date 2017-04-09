@@ -20,7 +20,10 @@ public final class EchoServer {
     public static void main(String[] args) throws Exception {
         try (ServerSocket serverSocket = new ServerSocket(22222)) {
             while (true) {
-                new Thread(new EchoClientInstance(serverSocket)).start();
+                serverSocket.setReuseAddress(true);
+                try (Socket socket = serverSocket.accept()) {
+                    new Thread(new EchoClientInstance(serverSocket)).start();
+                }
             }
         }
     }
@@ -44,13 +47,11 @@ class EchoClientInstance implements Runnable{
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
                 while ((inputLine = in.readLine()) != null) {
                     if (inputLine.equals("exit"))
-                        try {
                             throw new SocketException();
-                        } catch (SocketException e) {
-                            System.out.printf("Client disconnected: %s%n", address);
-                        }
                     out.println("Server> " + inputLine);
                 }
+            } catch (SocketException e) {
+                System.out.printf("Client disconnected: %s%n", address);
             } catch (IOException e) {
                 e.printStackTrace();
             }

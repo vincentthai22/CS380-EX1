@@ -7,6 +7,7 @@
  */
 
 import java.io.*;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.net.SocketException;
 
@@ -21,7 +22,9 @@ public final class EchoClient {
             BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
             OutputStream os = socket.getOutputStream();
             PrintStream out = new PrintStream(os, true, "UTF-8");
-            System.out.println("Server> " + br.readLine());
+            String connectionChecker = br.readLine();
+            if (connectionChecker.equals("null")) throw new NullPointerException();
+            System.out.println("Server> " + connectionChecker);
             while(true) {
                 System.out.print("Client> ");
                 temp = stdIn.readLine();
@@ -29,6 +32,8 @@ public final class EchoClient {
                 if(temp.toLowerCase().trim().equals("exit")) break;
                 System.out.println(br.readLine());
             }
+        } catch (NullPointerException e){
+            System.out.println("Failed to connect.. try again.");
         }
     }
 }
